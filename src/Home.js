@@ -1,13 +1,13 @@
 import React from 'react';
 import './Home.css';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { Flex, Button, Modal } from 'antd';
 
 function Home() {
   const movePage = useNavigate();
   function goMain() {
-    movePage('/main')
+    movePage('/main');
   }
   const [isModal1Open, setIsModal1Open] = useState(false);
   const [isModal2Open, setIsModal2Open] = useState(false);
@@ -57,11 +57,10 @@ function Home() {
         }
       });
       const data = await response.json();
-      console.log(response.ok)
       if (response.ok) {
-        console.log(data.text())
         setNowLogin(true)
-        movePage('/home')
+        setIsModal1Open(false)
+        movePage('/main')
       } 
       else if (response.ok === false) {
         throw new Error('에러 발생 !!');
@@ -88,8 +87,7 @@ function Home() {
         throw new Error('에러 발생 !!');
       }
       else if (data.ok === true) {
-        console.log(data.text())
-        movePage('/home')
+        setIsModal2Open(false)
       }
     } catch (error) {
       setError(error.message)
@@ -130,9 +128,6 @@ function Home() {
         <h1 className='title'>와글와글 ATM</h1>
         <nav>
           <Flex gap="small" wrap="wrap">
-            <Button className='btn1'>여기엔</Button>
-            <Button className='btn2'>무슨</Button>
-            <Button className='btn3'>내용이?</Button>
           <Button type="primary" className='login' onClick={showModal1}>Login</Button>
           <Button type='primary' className='signup' onClick={showModal2}>Sign Up</Button>
           {nowLogin && <Button type='primary' className='logout' onClick={onClickLogOut}>Logout</Button>}
