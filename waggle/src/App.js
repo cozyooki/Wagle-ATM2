@@ -6,6 +6,7 @@ import UserInputArea from './components/userInputArea';
 
 const { Sider, Content } = Layout;
 
+/* API */
 const url = 'http://54.85.191.171/chat';
 
 const App = () => {
